@@ -14,8 +14,9 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
+import androidx.navigation.compose.rememberNavController
+import com.asr.quietcapture.Screens.HomeScreen
 import com.asr.quietcapture.ui.theme.QuietCaptureTheme
-import com.asr.quietcapture.views.HomeScreen
 
 class MainActivity : ComponentActivity() {
     private val REQUEST_PERMISSIONS = 1
@@ -32,7 +33,7 @@ class MainActivity : ComponentActivity() {
         setContent {
             QuietCaptureTheme {
                 Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
-                    QuietCaptureApp(innerPadding)
+                    QuitedCaptureApp(innerPadding)
                 }
             }
         }
@@ -60,6 +61,7 @@ class MainActivity : ComponentActivity() {
 }
 
 @Composable
-fun QuietCaptureApp(innerPadding: PaddingValues) {
-    HomeScreen()
+fun QuitedCaptureApp(innerPadding: PaddingValues) {
+    val navController = rememberNavController()
+    HomeScreen(navController = navController)
 }
