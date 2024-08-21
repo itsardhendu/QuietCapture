@@ -1,6 +1,8 @@
 package com.asr.quietcapture
 
+import SettingScreen
 import android.Manifest
+import android.annotation.SuppressLint
 import android.content.pm.PackageManager
 import android.os.Bundle
 import android.widget.Toast
@@ -14,8 +16,14 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
+import androidx.navigation.NavHostController
+import androidx.navigation.compose.NavHost
+import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import com.asr.quietcapture.Screens.AboutMeScreen
 import com.asr.quietcapture.Screens.HomeScreen
+import com.asr.quietcapture.Screens.RecordedScreen
+import com.asr.quietcapture.Screens.RecordingScreen
 import com.asr.quietcapture.ui.theme.QuietCaptureTheme
 
 class MainActivity : ComponentActivity() {
@@ -60,8 +68,21 @@ class MainActivity : ComponentActivity() {
     }
 }
 
+@SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @Composable
 fun QuitedCaptureApp(innerPadding: PaddingValues) {
     val navController = rememberNavController()
-    HomeScreen(navController = navController)
+    Scaffold{
+        NavHost(
+            navController as NavHostController,
+            startDestination = "HomeScreen",
+            modifier = Modifier
+        ) {
+            composable("HomeScreen") { HomeScreen(navController) }
+            composable("RecordingScreen") { RecordingScreen(navController) }
+            composable("RecordedScreen") { RecordedScreen(navController) }
+            composable("SettingScreen") { SettingScreen(navController) }
+            composable("AboutMeScreen") { AboutMeScreen(navController) }
+        }
+    }
 }

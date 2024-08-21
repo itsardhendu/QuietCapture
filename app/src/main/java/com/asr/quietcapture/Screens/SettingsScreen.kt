@@ -2,6 +2,6 @@ import androidx.compose.runtime.Composable
 import androidx.navigation.NavController
 
 @Composable
-fun CameraSettingScreen(navController: NavController) {
+fun SettingScreen(navController: NavController) {
 
 }
