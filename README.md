@@ -61,6 +61,6 @@ This project is licensed under the MIT License. See the [LICENSE](LICENSE) file 
 
 ## Contact
 
-For any questions or inquiries, please reach out to [your.email@example.com](mailto:asr07@duck.com).
+For any questions or inquiries, please reach out to [asr07@duck.com](mailto:asr07@duck.com).
 
 ---
