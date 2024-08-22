@@ -1,5 +1,4 @@
 Project Date 30 July 2024. A android App ability to capture Video in the background
-Here's an updated version of your `README.md` with the app name and GitHub repository link:
 
 ---
 
