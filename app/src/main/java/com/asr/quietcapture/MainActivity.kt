@@ -1,6 +1,7 @@
 package com.asr.quietcapture
 
-import SettingScreen
+
+import SettingsScreen
 import android.Manifest
 import android.annotation.SuppressLint
 import android.content.pm.PackageManager
@@ -9,23 +10,23 @@ import android.widget.Toast
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
-import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material3.Scaffold
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
-import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
-import com.asr.quietcapture.Screens.AboutMeScreen
-import com.asr.quietcapture.Screens.HomeScreen
-import com.asr.quietcapture.Screens.RecordedScreen
-import com.asr.quietcapture.Screens.RecordingScreen
+import com.asr.quietcapture.screens.AboutMeScreen
+import com.asr.quietcapture.screens.HomeScreen
+import com.asr.quietcapture.screens.RecordedScreen
+import com.asr.quietcapture.screens.RecordingScreen
 import com.asr.quietcapture.ui.theme.QuietCaptureTheme
 
+@Suppress("DEPRECATION")
 class MainActivity : ComponentActivity() {
     private val REQUEST_PERMISSIONS = 1
     private val permissions = arrayOf(
@@ -34,14 +35,15 @@ class MainActivity : ComponentActivity() {
         Manifest.permission.WRITE_EXTERNAL_STORAGE
     )
 
+    @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         requestPermissionsIfNecessary()  // Request permissions here
         setContent {
             QuietCaptureTheme {
-                Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
-                    QuitedCaptureApp(innerPadding)
+                Scaffold(modifier = Modifier.fillMaxSize()) {
+                    QuiteCaptureApp()
                 }
             }
         }
@@ -70,19 +72,33 @@ class MainActivity : ComponentActivity() {
 
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @Composable
-fun QuitedCaptureApp(innerPadding: PaddingValues) {
+fun QuiteCaptureApp() {
     val navController = rememberNavController()
-    Scaffold{
-        NavHost(
-            navController as NavHostController,
-            startDestination = "HomeScreen",
-            modifier = Modifier
-        ) {
-            composable("HomeScreen") { HomeScreen(navController) }
-            composable("RecordingScreen") { RecordingScreen(navController) }
-            composable("RecordedScreen") { RecordedScreen(navController) }
-            composable("SettingScreen") { SettingScreen(navController) }
-            composable("AboutMeScreen") { AboutMeScreen(navController) }
+    HomeScreen(navController = navController)
+    NavHost(navController = navController, startDestination = Screen.Home.route) {
+        composable(Screen.Home.route) {
+            Text(text = "Welcome")
         }
+        composable(Screen.Recording.route) {
+            RecordingScreen(navController = navController)
+        }
+        composable(Screen.Settings.route) {
+            SettingsScreen(navController = navController)
+        }
+        composable(Screen.Recorded.route) {
+            RecordedScreen(navController = navController)
+        }
+        composable(Screen.AboutMe.route) {
+            AboutMeScreen(navController = navController)
+        }
+
     }
+}
+
+sealed class Screen(val route: String) {
+    data object Home : Screen("HomeScreen")
+    data object Recording : Screen("RecordingScreen")
+    data object Recorded : Screen("RecordedScreen")
+    data object Settings : Screen("SettingsScreen")
+    data object AboutMe : Screen("AboutMeScreen")
 }
