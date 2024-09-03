@@ -22,7 +22,7 @@ import com.google.accompanist.permissions.rememberPermissionState
 @OptIn(ExperimentalPermissionsApi::class)
 @Composable
 fun CameraPreview(modifier: Modifier) {
-    val context = LocalContext.current
+//    val context = LocalContext.current
     val lifecycleOwner = LocalLifecycleOwner.current
     val cameraPermissionState = rememberPermissionState(permission = Manifest.permission.CAMERA)
 
