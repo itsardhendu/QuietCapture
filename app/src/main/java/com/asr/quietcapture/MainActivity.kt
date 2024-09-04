@@ -20,6 +20,7 @@ import androidx.core.content.ContextCompat
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import com.asr.quietcapture.functionality.CameraPreview
 import com.asr.quietcapture.screens.AboutMeScreen
 import com.asr.quietcapture.screens.HomeScreen
 import com.asr.quietcapture.screens.RecordedScreen
@@ -77,7 +78,7 @@ fun QuiteCaptureApp() {
     HomeScreen(navController = navController)
     NavHost(navController = navController, startDestination = Screen.Home.route) {
         composable(Screen.Home.route) {
-            Text(text = "Welcome")
+
         }
         composable(Screen.Recording.route) {
             RecordingScreen(navController = navController)
